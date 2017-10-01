@@ -1,0 +1,7 @@
+puts ""
+puts "  X | O | X "
+puts " -----------"
+puts "  O | X | O "
+puts " -----------"
+puts "  X | O | X "
+puts ""
