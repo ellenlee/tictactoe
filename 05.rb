@@ -20,13 +20,15 @@ end
 
 def play(board)
   if current_player(board) == "X"
-    puts "請選出你要下棋的位置，請輸入 1-9："
+    puts "請選出你要下棋的位置"
+    puts "目前可用位置：#{avail_position(board)}"
     input = gets.chomp
-    index = input.to_i - 1
   else
     puts "換電腦下棋"
-    index = computer_play(board)
+    input = computer_play(board)
   end
+
+  index = input.to_i - 1
 
   if valid_move?(board, index)
     move(board, index)
@@ -109,10 +111,23 @@ end
 # 電腦選棋
 
 def computer_play(board)
-  input = rand(8)
-  puts input
-  input
+  input = avail_position(board).sample
 end
+
+def avail_position(board)
+  avail_position = Array.new
+  board.each_with_index do |input, index|
+    if input == " "
+      avail_position.push(index + 1)
+      # avail_position << index + 1
+    end
+  end
+  avail_position
+end
+
+# 最佳棋步
+
+
 
 # 執行程序
 
