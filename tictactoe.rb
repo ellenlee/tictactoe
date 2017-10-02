@@ -20,15 +20,13 @@ end
 
 def play(board)
   if current_player(board) == "X"
-    puts "請選出你要下棋的位置"
-    puts "目前可用位置：#{avail_position(board)}"
+    puts   puts "請選出你要下棋的位置，請輸入 1-9："
     input = gets.chomp
+    index = input.to_i - 1
   else
     puts "換電腦下棋"
-    input = computer_play(board)
+    index = computer_play(board)
   end
-
-  index = input.to_i - 1
 
   if valid_move?(board, index)
     move(board, index)
@@ -75,9 +73,9 @@ end
 
 def current_player(board)
   if turn_count(board) % 2 == 1
-    current_player = "X"
+    return "X"
   else
-    current_player = "O"
+    return "O"
   end
 end
 
@@ -106,23 +104,63 @@ end
 # 電腦選棋
 
 def computer_play(board)
-  input = avail_position(board).sample
+  best_choice(board)
 end
 
 def avail_position(board)
   avail_position = Array.new
+
   board.each_with_index do |input, index|
     if input == " "
-      avail_position.push(index + 1)
-      # avail_position << index + 1
+      avail_position << index
+      # 上面程式碼等同於 avail_position.push(index)
     end
   end
   avail_position
 end
 
+def best_choice(board)
+  avail_position = avail_position(board)
+
+  checkmate = [] # 電腦（O）差一格就贏
+  defence = []   # 人類（X）差一格就贏
+  possible = []  # 有 2 個空格 -- 還有可能連線
+
+  WIN_COMBINATIONS.each do |combo|
+    empty = combo & avail_position
+    taken = combo - empty
+    line_combo = taken.map {|i| board[i]}
+
+    if empty.length == 1
+      if line_combo[0] == "O" && line_combo[1] == "O"
+        checkmate << empty[0]
+      elsif line_combo[0] == "X" && line_combo[1] == "X"
+        defence << empty[0]
+      end
+    elsif empty.length == 2
+      if line_combo[0] == "O"
+        empty.each do |choice|
+          possible << choice
+        end
+      end
+    end
+  end
+
+  if checkmate.any?
+    return checkmate.sample
+  elsif defence.any?
+    return defence.sample
+  elsif possible.any?
+    return possible.sample
+  else
+    return avail_position.sample
+  end
+end
+
 # 執行程序
 
 board = [" "," "," "," "," "," "," "," "," "]
+# 上面程式碼等同於 Array.new(9, ' ')
 
 display_board(board)
 turn(board)

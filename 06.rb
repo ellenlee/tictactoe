@@ -166,7 +166,7 @@ def best_choice(board)
   if checkmate.any?
     return checkmate.sample + 1
   elsif defence.any?
-    return defence.sample  + 1
+    return defence.sample + 1
   elsif possible.any?
     return possible.sample + 1
   else
