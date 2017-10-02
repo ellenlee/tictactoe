@@ -26,7 +26,6 @@ def play(board)
   else
     puts "換電腦下棋"
     input = computer_play(board)
-    puts "電腦選 #{input}"
   end
 
   index = input.to_i - 1
@@ -148,8 +147,6 @@ def best_choice(board)
       end
     end
 
-    print "x: #{x}, o: #{o}, space: #{space}\n"
-
     if o.length == 2 && space.length == 1
       checkmate << space[0]
     end
@@ -164,21 +161,14 @@ def best_choice(board)
       end
     end
   end
-  puts "checkmate: #{checkmate}"
-  puts "defence: #{defence}"
-  puts "possible: #{possible}"
 
   if checkmate.any?
-    puts "checkmate: #{checkmate.sample}"
     return checkmate.sample + 1
   elsif defence.any?
-    puts "defence: #{defence.sample}"
     return defence.sample  + 1
   elsif possible.any?
-    puts "possible: #{possible.sample}"
     return possible.sample + 1
   else
-    puts "random: #{avail_position(board).sample}"
     return avail_position(board).sample
   end
 end
