@@ -21,21 +21,20 @@ end
 board = ["X","X","O"," "," "," "," "," ","O"]
 display_board(board)
 
-checkmate = [] # 自己（X）差一格就贏
-defence = []   # 別人（O）差一格就贏
+checkmate = [] # 電腦（O）差一格就贏
+defence = []   # 人類（X）差一格就贏
 possible = []  # 有 2 個空格 -- 還有可能連線
 
 WIN_COMBINATIONS.each do |combo|
-
-  x = []
   o = []
+  x = []
   space = []
 
   combo.each do |i|
-    if board[i] == "X"
-      x << i
-    elsif board[i] == "O"
+    if board[i] == "O"
       o << i
+    elsif board[i] == "X"
+      x << i
     elsif board[i] == " "
       space << i
     end
@@ -43,21 +42,34 @@ WIN_COMBINATIONS.each do |combo|
 
   print "x: #{x}, o: #{o}, space: #{space}\n"
 
-  if x.length == 2 && space.length == 1
+  if o.length == 2 && space.length == 1
     checkmate << space[0]
   end
 
-  if o.length == 2 && space.length == 1
+  if x.length == 2 && space.length == 1
     defence << space[0]
   end
 
-  if x.length == 1 && space.length == 2
+  if o.length == 1 && space.length == 2
     space.each do |s|
       possible << s
     end
   end
-
 end
 puts "checkmate: #{checkmate}"
 puts "defence: #{defence}"
 puts "possible: #{possible}"
+# 
+# if checkmate.any?
+#   puts "checkmate: #{checkmate.sample}"
+#   return checkmate.sample
+# elsif defence.any?
+#   puts "defence: #{defence.sample}"
+#   return defence.sample
+# elsif possible.any?
+#   puts "possible: #{possible.sample}"
+#   return possible.sample
+# else
+#   puts "random: #{avail_position(board).sample}"
+#   return avail_position(board).sample
+# end
