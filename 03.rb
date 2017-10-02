@@ -32,7 +32,7 @@ end
 # 兩人輪流
 
 def turn(board)
-  while(turn_count(board) <= 9)
+  while turn_count(board) <= 9
     puts "第 #{turn_count(board)} 回合，輪到 #{current_player(board)}"
     play(board)
   end

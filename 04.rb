@@ -42,7 +42,7 @@ end
 # 兩人輪流
 
 def turn(board)
-  while continue?(board)
+  while turn_count(board) <= 9 && !won?(board)
     puts "第 #{turn_count(board)} 回合，輪到 #{current_player(board)}"
     play(board)
   end
@@ -83,22 +83,17 @@ def won?(board)
       return win_combo
     end
   end
-  
+
   # 如果都沒人贏，就回傳 False
   return false
 end
 
 def winner(board)
-  if won?(board)
-    winner = board[won?(board)[0]]
+  win_combo = won?(board)
+  if win_combo
+    winner = board[win_combo[0]]
     return winner
   end
-end
-
-# 檢查遊戲的執行狀態
-
-def continue?(board)
-  turn_count(board) <= 9 && !won?(board)
 end
 
 # 執行程序

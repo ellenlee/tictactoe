@@ -120,7 +120,6 @@ def avail_position(board)
   avail_position
 end
 
-
 # 執行程序
 
 board = [" "," "," "," "," "," "," "," "," "]
