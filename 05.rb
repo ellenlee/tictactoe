@@ -19,9 +19,14 @@ def display_board(board)
 end
 
 def play(board)
-  puts "請選出你要下棋的位置，請輸入 1-9："
-  input = gets.chomp
-  index = input.to_i - 1
+  if current_player(board) == "X"
+    puts "請選出你要下棋的位置，請輸入 1-9："
+    input = gets.chomp
+    index = input.to_i - 1
+  else
+    puts "換電腦下棋"
+    index = computer_play(board)
+  end
 
   if valid_move?(board, index)
     move(board, index)
@@ -83,7 +88,7 @@ def won?(board)
       return win_combo
     end
   end
-  
+
   # 如果都沒人贏，就回傳 False
   return false
 end
@@ -99,6 +104,14 @@ end
 
 def continue?(board)
   turn_count(board) <= 9 && !won?(board)
+end
+
+# 電腦選棋
+
+def computer_play(board)
+  input = rand(8)
+  puts input
+  input
 end
 
 # 執行程序
