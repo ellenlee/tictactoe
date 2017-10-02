@@ -122,10 +122,6 @@ end
 def best_choice(board)
   avail_position = avail_position(board)
 
-  checkmate = [] # 電腦（O）差一格就贏
-  defence = []   # 人類（X）差一格就贏
-  possible = []  # 有 2 個空格 -- 還有可能連線
-
   WIN_COMBINATIONS.each do |combo|
     empty = combo & avail_position
     taken = combo - empty
