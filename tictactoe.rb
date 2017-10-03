@@ -48,7 +48,7 @@ end
 
 def turn(board)
   while turn_count(board) <= 9 && !won?(board)
-    puts "第 #{turn_count(board)} 回合，輪到 #{current_player(board)}"
+    puts "\n第 #{turn_count(board)} 回合，輪到 #{current_player(board)}"
     play(board)
   end
 
